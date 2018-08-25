@@ -1,4 +1,5 @@
 import pygame
+from blob import Blob
 
 
 class Display:
@@ -29,14 +30,17 @@ class Display:
 
         self.screen = pygame.display.set_mode(new_size, self.screen_options)
 
-        desired_blob_x_perc = 0.05
-        desired_blob_y_perc = 0.05
+        # TODO: Scale according to smaller dimension
+        blob_aspect_ratio = self.raw_blob_image.get_width() / self.raw_blob_image.get_height()
+
+        desired_blob_width = self.window_width * Blob.radius * 2
+        desired_blob_height = desired_blob_width / blob_aspect_ratio
 
         self.blob_image = pygame.transform.scale(
             self.raw_blob_image,
             (
-                int(desired_blob_x_perc * self.window_width),
-                int(desired_blob_y_perc * self.window_height)
+                int(desired_blob_width),
+                int(desired_blob_height)
             )
         )
 

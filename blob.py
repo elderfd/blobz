@@ -4,3 +4,5 @@ class Blob:
         self.y = y
 
         # TODO: Add colour
+
+    radius = 0.025
