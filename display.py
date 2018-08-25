@@ -22,7 +22,7 @@ class Display:
         self.time_of_last_draw = 0
 
     def load_resources(self):
-        self.raw_blob_image = pygame.image.load("Resources/basic_blob.png").convert_alpha()
+        self.raw_blob_image = pygame.image.load("Resources/cut_blob.png").convert_alpha()
 
     def resize(self, new_size):
         self.window_width = new_size[0]
