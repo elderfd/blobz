@@ -21,7 +21,7 @@ class Display:
         self.time_of_last_draw = 0
 
     def load_resources(self):
-        self.raw_blob_image = pygame.image.load("Resources/basic_blob.png").convert()
+        self.raw_blob_image = pygame.image.load("Resources/basic_blob.png").convert_alpha()
 
     def resize(self, new_size):
         self.window_width = new_size[0]
@@ -70,6 +70,8 @@ class Display:
         # pygame.draw.line(self.screen, black, startCoords, endCoords)
 
         # TODO: Draw the world
+        self.screen.fill([255, 255, 255])
+
         for blob in world_state.blobs:
             self.screen.blit(
                 self.blob_image,
