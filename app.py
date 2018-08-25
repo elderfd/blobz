@@ -19,16 +19,16 @@ class App:
         )
 
     def run(self):
-        stop = False
+        keep_going = True
 
         # Initial draw
         self.display.render()
 
-        while not stop:
+        while keep_going:
             # Deal with any queued events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    stop = True
+                    keep_going = False
                     break
                 elif event.type == pygame.VIDEORESIZE:
                     # Rescale to match new size
