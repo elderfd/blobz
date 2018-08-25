@@ -1,5 +1,4 @@
 import pygame
-from util import msecs_since_epoch
 
 
 class Display:
@@ -17,9 +16,11 @@ class Display:
         self.min_time_between_frames = 1 / max_fps
         self.time_of_last_draw = 0
 
+        self.last_state = None
+
     def resize(self, new_size):
         pygame.display.set_mode(new_size, self.screen_options)
-        self.render()
+        self.render(self.last_state)
 
     # Returns a Rect which matches the given grid x, y coordinates
     # def gridCoordsToDisplayRect(self, x, y):
@@ -35,12 +36,12 @@ class Display:
     # def gridYToDisplayY(self, y):
     #     return y * self.squareYSize + self.borderThickness
 
-    def render(self, force = False):
+    def render(self, world_state):
+        self.last_state = world_state
         # pygame.draw.rect(self.screen, colour, rect)
 
         # pygame.draw.line(self.screen, black, startCoords, endCoords)
 
-        if not force and msecs_since_epoch() - self.time_of_last_draw < self.min_time_between_frames:
-            return
+        # TODO: Draw the world
 
         pygame.display.update()
