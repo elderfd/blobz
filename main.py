@@ -27,9 +27,6 @@ class Display:
             self.screen_options
         )
 
-        self.inSetUpMode = True
-        self.buttonPressedInWindow = False
-
         self.min_time_between_frames = 1 / max_fps
         self.time_of_last_draw = 0
 
