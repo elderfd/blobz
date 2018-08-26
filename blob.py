@@ -1,5 +1,12 @@
 from random import random
 from uuid import uuid4 as uuid
+from enum import Enum
+
+
+class MovementDirection(Enum):
+    NONE = 0
+    LEFT = 1
+    RIGHT = 2
 
 
 class Blob:
@@ -16,5 +23,7 @@ class Blob:
                 int(random() * 255),
                 int(random() * 255)
             )
+
+        self.movement_direction = MovementDirection.NONE
 
     radius = 0.025

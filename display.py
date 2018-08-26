@@ -1,9 +1,18 @@
 import pygame
-from blob import Blob
+from blob import Blob, MovementDirection
 
 
 class Display:
     """Provides the display for the simulation and allows interaction"""
+
+    class BlobImage:
+        def __init__(self, image, direction):
+            self.image = image
+            self.direction = direction
+
+        def flip(self):
+            self.image = pygame.transform.flip(self.image, True, False)
+
     def __init__(self, window_width, window_height, max_fps, debug_mode = False):
         self.debug_mode = debug_mode
 
@@ -56,7 +65,10 @@ class Display:
         for i in range(len(blob.colour)):
             colouring_array[white_indices, i] = blob.colour[i]
 
-        self.blob_images[blob.id] = new_image
+        self.blob_images[blob.id] = Display.BlobImage(
+            image = new_image,
+            direction = blob.movement_direction if blob.movement_direction == MovementDirection.LEFT else MovementDirection.RIGHT
+        )
 
     def resize(self, new_size):
         self.window_width = new_size[0]
@@ -86,11 +98,14 @@ class Display:
             if not blob.id in self.blob_images:
                 self._generate_single_blob_image(blob)
 
+            if blob.movement_direction != MovementDirection.NONE and blob.movement_direction != self.blob_images[blob.id].direction:
+                self.blob_images[blob.id].flip()
+
             self.screen.blit(
-                self.blob_images[blob.id],
+                self.blob_images[blob.id].image,
                 (
-                    centre_coords[0] - self.blob_images[blob.id].get_width() // 2,
-                    centre_coords[1] - self.blob_images[blob.id].get_height() // 2
+                    centre_coords[0] - self.blob_images[blob.id].image.get_width() // 2,
+                    centre_coords[1] - self.blob_images[blob.id].image.get_height() // 2
                 )
             )
             

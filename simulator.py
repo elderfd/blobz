@@ -1,6 +1,6 @@
 from world_state import WorldState
 from random import random
-from blob import Blob
+from blob import Blob, MovementDirection
 from math import sqrt
 
 
@@ -12,8 +12,16 @@ class Simulator:
         max_step_size = Blob.radius * 2
         
         for blob in self.current_state.blobs:
-            blob.x += random() * 2 * max_step_size - max_step_size
-            blob.y += random() * 2 * max_step_size - max_step_size
+            x_step = random() * 2 * max_step_size - max_step_size
+            y_step = random() * 2 * max_step_size - max_step_size
+
+            if x_step < 0:
+                blob.movement_direction = MovementDirection.LEFT
+            elif x_step > 0:
+                blob.movement_direction = MovementDirection.RIGHT
+
+            blob.x += x_step
+            blob.y += y_step
 
             if blob.x + blob.radius > 1:
                 blob.x = 1 - blob.radius
