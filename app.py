@@ -4,7 +4,7 @@ from simulator import Simulator
 from util import secs_since_epoch
 
 class App:
-    def __init__(self):
+    def __init__(self, debug_mode):
         # Set up pygame stuff first
         pygame.init()
 
@@ -17,7 +17,8 @@ class App:
         self.display = Display(
             window_width = default_window_width,
             window_height = default_window_height,
-            max_fps = 60
+            max_fps = 60,
+            debug_mode = debug_mode
         )
 
         self.simulator = Simulator()
@@ -53,5 +54,5 @@ class App:
 
 
 if __name__ == "__main__":
-    app = App()
+    app = App(debug_mode = True)
     app.run()
