@@ -1,6 +1,7 @@
 from world_state import WorldState
 from random import random
 from blob import Blob
+from math import sqrt
 
 
 class Simulator:
@@ -23,5 +24,18 @@ class Simulator:
                 blob.y = 1 - blob.radius
             elif blob.y - blob.radius < 0:
                 blob.y = blob.radius
+
+        for i in range(len(self.current_state.blobs) - 1):
+            for j in range(i + 1, len(self.current_state.blobs)):
+                blob_i = self.current_state.blobs[i]
+                blob_j = self.current_state.blobs[j]
+                
+                distance_between = sqrt((blob_i.x - blob_j.x) ** 2 + (blob_i.y - blob_j.y) ** 2)
+
+                have_collided = distance_between < 2 * Blob.radius
+
+                if have_collided:
+                    # TODO
+                    pass
 
         return self.current_state
